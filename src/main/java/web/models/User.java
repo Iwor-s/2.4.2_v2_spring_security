@@ -1,7 +1,9 @@
 package web.models;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -13,7 +15,12 @@ public class User {
     private String surname;
     @Column(name="year_of_birth")
     private int yearOfBirth;
-    
+    @ManyToMany(fetch = FetchType.EAGER
+            , cascade = CascadeType.MERGE)
+    @JoinTable(name = "user_roles"
+            , joinColumns = @JoinColumn(name = "user_id")
+            , inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
     
     public User() {
     }
@@ -50,6 +57,21 @@ public class User {
     }
     public void setYearOfBirth(int yearOfBirth) {
         this.yearOfBirth = yearOfBirth;
+    }
+    
+    public Set<Role> getRoles() {
+        return roles;
+    }
+    
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+    
+    public void setRole(Role role) {
+        if (roles == null) {
+            roles = new HashSet<>();
+        }
+        roles.add(role);
     }
     
     @Override

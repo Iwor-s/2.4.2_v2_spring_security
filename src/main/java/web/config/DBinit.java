@@ -28,6 +28,10 @@ public class DBinit {
         
         for (int i = 1; i < 11; i++) {
             User user = new User("name-" + i, "surname-" + i, 2000 + i);
+            if (i % 5 == 0) {
+                user.setRole(role1);
+            }
+            user.setRole(role2);
             userService.save(user);
         }
     }
