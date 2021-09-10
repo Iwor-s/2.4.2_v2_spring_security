@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Edit Page</title>
+</head>
+<body>
+<style>
+    form {
+        width: fit-content;
+        margin: 40px auto;
+    }
+    fieldset {
+        padding: 20px 30px;
+    }
+    label {
+        display: block;
+    }
+    input {
+        width: 200px;
+        margin: 5px 0 10px;
+    }
+    .btn {
+        width: 208px;
+        padding: 3px;
+        cursor: pointer;
+    }
+</style>
+
+<form th:method="PATCH"
+      th:action="@{/users/{id}(id=${user.getId()})}"
+      th:object="${user}">
+    <fieldset>
+        <legend>Creating a new User</legend>
+        
+        <label for="name">Name</label>
+        <input id="name" type="text" th:field="*{name}" required>
+        <br>
+        <label for="surname">Surname</label>
+        <input id="surname" type="text" th:field="*{surname}" required>
+        <br>
+        <label for="year">Year of Birth</label>
+        <input id="year" type="number" th:field="*{yearOfBirth}" required>
+        <br><br>
+        <input class="btn" type="submit" value="Update User">
+    </fieldset>
+</form>
+
+</body>
+</html>
