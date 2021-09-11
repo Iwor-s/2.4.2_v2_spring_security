@@ -33,6 +33,7 @@ public class DBinit {
             }
             user.setRole(role2);
             userService.save(user);
+            System.out.println(user);
         }
     }
 }

@@ -9,12 +9,12 @@ import web.services.UserService;
 
 
 @Controller
-@RequestMapping("/users")
-public class UsersController {
+@RequestMapping("admin/users")
+public class AdminController {
     private final RoleService roleService;
     private final UserService userService;
     
-    public UsersController(RoleService roleService, UserService userService) {
+    public AdminController(RoleService roleService, UserService userService) {
         this.roleService = roleService;
         this.userService = userService;
     }
