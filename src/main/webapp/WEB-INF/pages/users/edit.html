@@ -9,6 +9,7 @@
 <style>
     form {
         width: fit-content;
+        width: -moz-fit-content;
         margin: 40px auto;
     }
     fieldset {
@@ -32,16 +33,23 @@
       th:action="@{/users/{id}(id=${user.getId()})}"
       th:object="${user}">
     <fieldset>
-        <legend>Creating a new User</legend>
+        <legend th:text="'Editing ID ' + ${id}"></legend>
         
-        <label for="name">Name</label>
-        <input id="name" type="text" th:field="*{name}" required>
+        <label for="login">Login</label>
+        <input id="login" type="text" th:field="*{login}" required>
         <br>
-        <label for="surname">Surname</label>
-        <input id="surname" type="text" th:field="*{surname}" required>
+        <label for="password">Password</label>
+        <input id="password" type="text" th:field="*{password}" required>
         <br>
-        <label for="year">Year of Birth</label>
-        <input id="year" type="number" th:field="*{yearOfBirth}" required>
+        <p th:text="'Roles: ' + *{roles}"></p>
+        <br>
+        <select multiple size="3">
+            <option disabled selected>Select role:</option>
+            <div th:each="role : ${roles}">
+                <option th:text="${role.getRole()}"
+                        th:value="${role.getId()}"></option>
+            </div>
+        </select>
         <br><br>
         <input class="btn" type="submit" value="Update User">
     </fieldset>

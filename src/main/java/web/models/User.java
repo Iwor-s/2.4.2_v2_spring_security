@@ -11,24 +11,23 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
-    private String surname;
-    @Column(name="year_of_birth")
-    private int yearOfBirth;
+    @Column(unique = true)
+    private String login;
+    private String password;
     @ManyToMany(fetch = FetchType.EAGER
             , cascade = CascadeType.MERGE)
     @JoinTable(name = "user_roles"
             , joinColumns = @JoinColumn(name = "user_id")
             , inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinColumn(name = "roles")
     private Set<Role> roles;
     
     public User() {
     }
     
-    public User(String name, String surname, int yearOfBirth) {
-        this.name = name;
-        this.surname = surname;
-        this.yearOfBirth = yearOfBirth;
+    public User(String login,String password) {
+        this.login = login;
+        this.password = password;
     }
     
     public long getId() {
@@ -38,25 +37,20 @@ public class User {
         this.id = id;
     }
     
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
+    public String getLogin() {
+        return login;
     }
     
-    public String getSurname() {
-        return surname;
-    }
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLogin(String login) {
+        this.login = login;
     }
     
-    public int getYearOfBirth() {
-        return yearOfBirth;
+    public String getPassword() {
+        return password;
     }
-    public void setYearOfBirth(int yearOfBirth) {
-        this.yearOfBirth = yearOfBirth;
+    
+    public void setPassword(String password) {
+        this.password = password;
     }
     
     public Set<Role> getRoles() {
@@ -72,6 +66,7 @@ public class User {
             roles = new HashSet<>();
         }
         roles.add(role);
+        
     }
     
     @Override
@@ -80,18 +75,18 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id
-                && yearOfBirth == user.yearOfBirth
-                && Objects.equals(name, user.name)
-                && Objects.equals(surname, user.surname);
+                && Objects.equals(login, user.login)
+                && Objects.equals(password, user.password)
+                && Objects.equals(roles, user.roles);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, yearOfBirth);
+        return Objects.hash(id, login, password, roles);
     }
     
     @Override
     public String toString() {
-        return "(" + id + ") " + name + " " + surname + ", " + yearOfBirth;
+        return id + " " + roles + " " + login + " " + password;
     }
 }

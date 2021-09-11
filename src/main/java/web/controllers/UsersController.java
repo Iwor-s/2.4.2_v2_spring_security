@@ -4,15 +4,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import web.models.User;
+import web.services.RoleService;
 import web.services.UserService;
 
 
 @Controller
 @RequestMapping("/users")
 public class UsersController {
+    private final RoleService roleService;
     private final UserService userService;
     
-    public UsersController(UserService userService) {
+    public UsersController(RoleService roleService, UserService userService) {
+        this.roleService = roleService;
         this.userService = userService;
     }
     
@@ -36,7 +39,8 @@ public class UsersController {
     @GetMapping("/{id}/edit")
     public String edit(Model model,
                        @PathVariable("id") long id) {
-        model.addAttribute(userService.getById(id));
+        model.addAttribute("user", userService.getById(id));
+        model.addAttribute("roles", roleService.getAll());
         return "users/edit";
     }
     

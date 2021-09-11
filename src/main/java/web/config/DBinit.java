@@ -26,8 +26,8 @@ public class DBinit {
         roleService.save(role1);
         roleService.save(role2);
         
-        for (int i = 1; i < 11; i++) {
-            User user = new User("name-" + i, "surname-" + i, 2000 + i);
+        for (int i = 1; i < 6; i++) {
+            User user = new User("login-" + i, "pass-" + i);
             if (i % 5 == 0) {
                 user.setRole(role1);
             }
