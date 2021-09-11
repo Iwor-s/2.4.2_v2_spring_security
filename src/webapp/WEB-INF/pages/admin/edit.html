@@ -30,7 +30,7 @@
 </style>
 
 <form th:method="PATCH"
-      th:action="@{/users/{id}(id=${user.getId()})}"
+      th:action="@{/admin/users/{id}(id=${user.getId()})}"
       th:object="${user}">
     <fieldset>
         <legend th:text="'Editing ID ' + ${id}"></legend>

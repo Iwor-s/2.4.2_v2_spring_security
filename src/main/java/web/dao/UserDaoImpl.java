@@ -22,13 +22,15 @@ public class UserDaoImpl implements UserDao {
     
     @Override
     public User getById(long id) {
-        return entityManager
-                .find(User.class, id);
+        return entityManager.find(User.class, id);
     }
     
     @Override
     public User getByName(String name) {
-        return entityManager.find(User.class, name);
+        return entityManager
+                .createQuery("SELECT u FROM User u WHERE u.login=:name", User.class)
+                .setParameter("name", name)
+                .getSingleResult();
     }
     
     @Override

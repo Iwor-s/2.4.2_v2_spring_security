@@ -1,5 +1,7 @@
 package web.models;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,18 +20,26 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String login;
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER
-            , cascade = CascadeType.MERGE)
-    @JoinTable(name = "user_roles"
-            , joinColumns = @JoinColumn(name = "user_id")
-            , inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @JoinColumn(name = "roles")
-    private Set<Role> roles;
+    // @ManyToMany(fetch = FetchType.EAGER
+    //         , cascade = CascadeType.MERGE)
+    // @JoinTable(name = "user_roles"
+    //         , joinColumns = @JoinColumn(name = "user_id")
+    //         , inverseJoinColumns = @JoinColumn(name = "role_id"))
+    // @JoinColumn(name = "roles")
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @Fetch(FetchMode.JOIN)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
     
     public User() {
     }
     
-    public User(String login,String password) {
+    public User(String login, String password) {
         this.login = login;
         this.password = password;
     }
@@ -44,7 +54,6 @@ public class User implements UserDetails {
     public String getLogin() {
         return login;
     }
-    
     public void setLogin(String login) {
         this.login = login;
     }
@@ -52,7 +61,6 @@ public class User implements UserDetails {
     public String getPassword() {
         return password;
     }
-    
     public void setPassword(String password) {
         this.password = password;
     }
@@ -60,12 +68,11 @@ public class User implements UserDetails {
     public Set<Role> getRoles() {
         return roles;
     }
-    
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
     
-    public void setRole(Role role) {
+    public void addRole(Role role) {
         if (roles == null) {
             roles = new HashSet<>();
         }
@@ -74,12 +81,12 @@ public class User implements UserDetails {
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles;
     }
     
     @Override
     public String getUsername() {
-        return getLogin();
+        return login;
     }
     
     @Override

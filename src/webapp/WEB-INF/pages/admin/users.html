@@ -71,10 +71,10 @@
         <td th:text="${user.getLogin()}"></td>
         <td th:text="${user.getPassword()}"></td>
         <td th:text="${user.getRoles()}"></td>
-        <td><a th:href="@{/users/{id}/edit(id=${user.getId()})}">edit</a></td>
+        <td><a th:href="@{users/{id}/edit(id=${user.getId()})}">edit</a></td>
         <td>
             <form th:method="DELETE"
-                  th:action="@{/users/{id}(id=${user.getId()})}"
+                  th:action="@{users/{id}(id=${user.getId()})}"
                   th:object="${user}">
                 <input class="delete"
                        type="submit"
@@ -84,7 +84,7 @@
     </tr>
 </table>
 <div class="links">
-    <a href="/users/new">add</a>
+    <a href="users/new">add</a>
 </div>
 
 </body>

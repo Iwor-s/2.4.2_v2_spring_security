@@ -1,7 +1,6 @@
 package web.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,7 +17,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService; // сервис, с помощью которого тащим пользователя
     private final LoginSuccessHandler loginSuccessHandler; // класс, в котором описана логика перенаправления пользователей по ролям
     
-    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, LoginSuccessHandler loginSuccessHandler) {
+    public SecurityConfig(UserDetailsService userDetailsService
+            , LoginSuccessHandler loginSuccessHandler) {
         this.userDetailsService = userDetailsService;
         this.loginSuccessHandler = loginSuccessHandler;
     }
@@ -35,7 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 //указываем логику обработки при логине
                 .successHandler(loginSuccessHandler)
-                // .successHandler(loginSuccessHandler)
                 // указываем action с формы логина
                 .loginProcessingUrl("/login")
                 // Указываем параметры логина и пароля с формы логина
@@ -51,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 // указываем URL при удачном логауте
                 .logoutSuccessUrl("/login?logout")
-                //выклчаем кроссдоменную секьюрность (на этапе обучения неважна)
+                //выключаем кроссдоменную секьюрность (на этапе обучения неважна)
                 .and().csrf().disable();
     
         http
@@ -60,10 +59,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //страница аутентификации доступна всем
                 .antMatchers("/login").anonymous()
                 // защищенные URL
-                // .antMatchers("/user").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-                // .regexMatchers("/admin.*").access("hasRole('ROLE_ADMIN')")
                 .regexMatchers("/admin.*").access("hasRole('ADMIN')")
                 .antMatchers("/user").access("hasAnyRole('USER', 'ADMIN')")
+                .antMatchers("/").authenticated()
                 .anyRequest().authenticated();
     }
 
@@ -72,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }
     
-    // Remove the ROLE_ prefix
+// Remove the ROLE_ prefix
     @Bean
     GrantedAuthorityDefaults grantedAuthorityDefaults() {
         return new GrantedAuthorityDefaults("");

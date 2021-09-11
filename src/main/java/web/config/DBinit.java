@@ -26,14 +26,15 @@ public class DBinit {
         roleService.save(role1);
         roleService.save(role2);
         
-        for (int i = 1; i < 6; i++) {
-            User user = new User("login-" + i, "pass-" + i);
-            if (i % 5 == 0) {
-                user.setRole(role1);
-            }
-            user.setRole(role2);
-            userService.save(user);
-            System.out.println(user);
-        }
+        User user1 = new User("tom", "tom");
+        User user2 = new User("ann", "ann");
+        User user3 = new User("sam", "sam");
+        user1.addRole(role1);
+        user2.addRole(role2);
+        user3.addRole(role1);
+        user3.addRole(role2);
+        userService.save(user1);
+        userService.save(user2);
+        userService.save(user3);
     }
 }
