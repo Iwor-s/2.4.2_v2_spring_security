@@ -9,7 +9,7 @@ import web.services.UserService;
 
 
 @Controller
-@RequestMapping("admin")
+@RequestMapping("admin/users")
 public class AdminController {
     private final RoleService roleService;
     private final UserService userService;
@@ -19,29 +19,30 @@ public class AdminController {
         this.userService = userService;
     }
     
-    @GetMapping
-    public String showUsers(Model model) {
-        return "redirect:admin/users";
-    }
+    // @GetMapping
+    // public String showUsers(Model model) {
+    //     return "redirect:admin/users";
+    // }
     
-    @GetMapping("users")
+    @GetMapping
     public String showAll(Model model) {
         model.addAttribute("users", userService.getAll());
         return "admin/users";
     }
     
-    @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user) {
+    @GetMapping("new")
+    public String newUser(Model model, @ModelAttribute("user") User user) {
+        model.addAttribute("roles", roleService.getAll());
         return "admin/new";
     }
     
     @PostMapping
     public String create(@ModelAttribute("user") User user) {
         userService.save(user);
-        return "redirect:/admin";
+        return "redirect:/admin/users";
     }
     
-    @GetMapping("users/{id}/edit")
+    @GetMapping("{id}/edit")
     public String edit(Model model,
                        @PathVariable("id") long id) {
         model.addAttribute("user", userService.getById(id));
@@ -49,15 +50,15 @@ public class AdminController {
         return "admin/edit";
     }
     
-    @PatchMapping("users/{id}")
+    @PatchMapping("{id}")
     public String update(@ModelAttribute("user") User user) {
         userService.update(user);
-        return "redirect:/admin";
+        return "redirect:/admin/users";
     }
     
-    @DeleteMapping("users/{id}")
+    @DeleteMapping("{id}")
     public String delete(@PathVariable("id") long id) {
         userService.deleteById(id);
-        return "redirect:/admin";
+        return "redirect:/admin/users";
     }
 }
