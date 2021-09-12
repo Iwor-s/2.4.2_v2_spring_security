@@ -22,12 +22,15 @@
         <h3 th:text="${user.getSurname()}"></h3>
         <p>email:</p>
         <h3 th:text="${user.getEmail()}"></h3>
+        <p>roles:</p>
+        <h3 th:text="${user.getRoles()}"></h3>
         
     </fieldset>
 </form>
 
 <div class="links">
     <a th:href="@{/logout}">logout</a>
+    <a th:href="@{/admin/users}">back</a>
 </div>
 
 </body>

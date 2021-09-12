@@ -20,7 +20,7 @@
         <label for="password">Password</label>
         <input class="input" id="password" type="text" th:field="*{password}" required>
         <br>
-        <p>Roles: <span th:each="role : ${roles}"> <span th:text="${role}"> </span></span></p>
+        <p>Roles: <span th:text="${user.getRoles()}"></span></p>
         <br>
         <select multiple size="3">
             <option disabled selected>Select role:</option>
@@ -36,6 +36,7 @@
 
 <div class="links">
     <a th:href="@{/logout}">logout</a>
+    <a th:href="@{/admin/users}">back</a>
 </div>
 
 </body>

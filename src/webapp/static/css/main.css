@@ -1,4 +1,15 @@
 
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    padding: 50px 0;
+}
+h3 {
+    padding-bottom: 10px;
+}
+
 table {
     margin: 10px auto;
     border-collapse: collapse;
@@ -12,7 +23,7 @@ td {
     text-align: center;
 }
 .links {
-    margin: 20px auto 0;
+    margin: 20px auto;
     width: -moz-fit-content;
     width: fit-content;
 }
