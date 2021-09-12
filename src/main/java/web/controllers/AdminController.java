@@ -9,7 +9,7 @@ import web.services.UserService;
 
 
 @Controller
-@RequestMapping("admin/users")
+@RequestMapping("/admin/users")
 public class AdminController {
     private final RoleService roleService;
     private final UserService userService;
@@ -19,30 +19,25 @@ public class AdminController {
         this.userService = userService;
     }
     
-    // @GetMapping
-    // public String showUsers(Model model) {
-    //     return "redirect:admin/users";
-    // }
-    
-    @GetMapping
+    @GetMapping("")
     public String showAll(Model model) {
         model.addAttribute("users", userService.getAll());
         return "admin/users";
     }
     
-    @GetMapping("new")
+    @GetMapping("/new")
     public String newUser(Model model, @ModelAttribute("user") User user) {
         model.addAttribute("roles", roleService.getAll());
         return "admin/new";
     }
     
-    @PostMapping
+    @PostMapping("")
     public String create(@ModelAttribute("user") User user) {
         userService.save(user);
         return "redirect:/admin/users";
     }
     
-    @GetMapping("{id}/edit")
+    @GetMapping("/{id}/edit")
     public String edit(Model model,
                        @PathVariable("id") long id) {
         model.addAttribute("user", userService.getById(id));
@@ -50,13 +45,19 @@ public class AdminController {
         return "admin/edit";
     }
     
-    @PatchMapping("{id}")
+    @GetMapping("/{id}")
+    public String showInfo(Model model, @PathVariable("id") long id) {
+        model.addAttribute("user", userService.getById(id));
+        return "admin/user";
+    }
+    
+    @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user) {
         userService.update(user);
         return "redirect:/admin/users";
     }
     
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") long id) {
         userService.deleteById(id);
         return "redirect:/admin/users";

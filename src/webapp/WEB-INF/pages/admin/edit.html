@@ -20,6 +20,15 @@
         <label for="password">Password</label>
         <input class="input" id="password" type="text" th:field="*{password}" required>
         <br>
+        <label for="name">Name</label>
+        <input class="input" id="name" type="text" th:field="*{name}" required>
+        <br>
+        <label for="surname">Surname</label>
+        <input class="input" id="surname" type="text" th:field="*{surname}" required>
+        <br>
+        <label for="email">Email</label>
+        <input class="input" id="email" type="text" th:field="*{email}" required>
+        <br>
         <p>Roles: <span th:text="${user.getRoles()}"></span></p>
         <br>
         <select multiple size="3">

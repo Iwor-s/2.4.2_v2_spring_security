@@ -25,14 +25,10 @@
                 <span th:text="${role}"></span><br>
             </span>
         </td>
-<<<<<<< HEAD
         <td>
             <a th:href="@{users/{id}(id=${user.getId()})}">info</a>
             <a th:href="@{users/{id}/edit(id=${user.getId()})}">edit</a>
         </td>
-=======
-        <td><a th:href="@{users/{id}/edit(id=${user.getId()})}">edit</a></td>
->>>>>>> 0b13b32 (added user page)
         <td>
             <form th:method="DELETE"
                   th:action="@{users/{id}(id=${user.getId()})}"
