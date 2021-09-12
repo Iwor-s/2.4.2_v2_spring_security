@@ -4,59 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Users Page</title>
+    <link rel="stylesheet" th:href="@{/static/css/main.css}">
 </head>
 <body>
-
-<style>
-    table {
-        margin: 10px auto;
-        border-collapse: collapse;
-    }
-    th,
-    td {
-        padding: 7px 10px;
-    }
-    td {
-        border: 1px solid #000;
-        text-align: center;
-    }
-    .links {
-        margin: 20px auto 0;
-        width: -moz-fit-content;
-        width: fit-content;
-    }
-    a {
-        display: inline-block;
-        min-width: 40px;
-        text-align: center;
-        margin: 0 8px;
-        padding: 3px 10px;
-        border: 1px solid #000;
-        border-radius: 5px;
-        text-decoration: none;
-        color: #000;
-        transition-duration: .2s;
-    }
-    a:hover {
-        background-color: #ddd;
-    }
-    .delete {
-        cursor: pointer;
-        margin: -2px;
-        padding: 2px 6px 1px;
-        font-size: 1.1em;
-        background-color: transparent;
-        color: firebrick;
-        font-weight: bold;
-        border-radius: 50%;
-        border: none;
-        transition-duration: .2s;
-    }
-    .delete:hover {
-        background-color: firebrick;
-        color: #fff;
-    }
-</style>
 
 <table>
     <tr>
@@ -70,7 +20,11 @@
         <td th:text="${user.getId()}"></td>
         <td th:text="${user.getLogin()}"></td>
         <td th:text="${user.getPassword()}"></td>
-        <td th:text="${user.getRoles()}"></td>
+        <td>
+            <span th:each="role : ${user.getRoles()}">
+                <span th:text="${role}"></span><br>
+            </span>
+        </td>
         <td><a th:href="@{users/{id}/edit(id=${user.getId()})}">edit</a></td>
         <td>
             <form th:method="DELETE"
@@ -83,7 +37,9 @@
         </td>
     </tr>
 </table>
+
 <div class="links">
+    <a th:href="@{/logout}">logout</a>
     <a href="users/new">add</a>
 </div>
 

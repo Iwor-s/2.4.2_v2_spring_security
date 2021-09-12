@@ -4,30 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>User Creation Page</title>
+    <link rel="stylesheet" th:href="@{/static/css/main.css}">
 </head>
 <body>
-<style>
-    form {
-        width: fit-content;
-        width: -moz-fit-content;
-        margin: 40px auto;
-    }
-    fieldset {
-        padding: 20px 30px;
-    }
-    label {
-        display: block;
-    }
-    input {
-        width: 200px;
-        margin: 5px 0 10px;
-    }
-    .btn {
-        width: 208px;
-        padding: 3px;
-        cursor: pointer;
-    }
-</style>
 
 <form th:method="POST"
       th:action="@{/admin/users}"
@@ -36,10 +15,10 @@
         <legend>Creating a new User</legend>
     
         <label for="login">Login</label>
-        <input id="login" type="text" th:field="*{login}" required>
+        <input class="input" id="login" type="text" th:field="*{login}" required>
         <br>
         <label for="password">Password</label>
-        <input id="password" type="text" th:field="*{password}" required>
+        <input class="input" id="password" type="text" th:field="*{password}" required>
         <br>
         <br>
         <select multiple size="3">
@@ -53,6 +32,10 @@
         <input class="btn" type="submit" value="Add User">
     </fieldset>
 </form>
+
+<div class="links">
+    <a th:href="@{/logout}">logout</a>
+</div>
 
 </body>
 </html>

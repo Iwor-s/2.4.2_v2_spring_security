@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Page</title>
+    <link rel="stylesheet" th:href="@{static/css/main.css}">
+</head>
+<body>
+
+<form>
+    <fieldset>
+        <legend>User Info</legend>
+        
+        <p>Login</p>
+        <h4 th:text="${user.getLogin()}"></h4>
+        <p>Password</p>
+        <h4 th:text="${user.getPassword()}"></h4>
+    </fieldset>
+</form>
+
+<div class="links">
+    <a th:href="@{/logout}">logout</a>
+</div>
+
+</body>
+</html>

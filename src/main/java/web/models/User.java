@@ -20,20 +20,13 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String login;
     private String password;
-    // @ManyToMany(fetch = FetchType.EAGER
-    //         , cascade = CascadeType.MERGE)
-    // @JoinTable(name = "user_roles"
-    //         , joinColumns = @JoinColumn(name = "user_id")
-    //         , inverseJoinColumns = @JoinColumn(name = "role_id"))
-    // @JoinColumn(name = "roles")
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @Fetch(FetchMode.JOIN)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
     
     public User() {

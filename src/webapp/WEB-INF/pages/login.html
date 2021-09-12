@@ -4,15 +4,19 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Login Page</title>
+    <link rel="stylesheet" th:href="@{static/css/main.css}">
 </head>
 <body>
-<div>
-    <form method="post" action="/login">
-        <input name="j_username" autofocus/>
-        <input name="j_password"/>
-        <input type="submit"/>
-    </form>
-</div>
+
+<form method="post" action="/login">
+    <input type="text" name="j_username" placeholder="login" autofocus>
+    <input type="password" name="j_password" placeholder="password">
+    <input type="submit"/>
+    <p>ADMIN: tom - tom</p>
+    <p>USER: ann - ann</p>
+    <p>ADMIN, USER: sam - sam</p>
+</form>
+
 </body>
 </html>
