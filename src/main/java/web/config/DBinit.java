@@ -1,12 +1,12 @@
 package web.config;
 
 import org.springframework.stereotype.Component;
+import javax.annotation.PostConstruct;
+
 import web.models.Role;
 import web.models.User;
 import web.services.RoleService;
 import web.services.UserService;
-
-import javax.annotation.PostConstruct;
 
 @Component
 public class DBinit {

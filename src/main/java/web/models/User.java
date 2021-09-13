@@ -4,7 +4,6 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
@@ -153,6 +152,6 @@ public class User implements UserDetails {
     
     @Override
     public String toString() {
-        return id + " " + roles + " " + login + " " + password;
+        return "ID " + id + " " + roles + " " + login + " " + password;
     }
 }

@@ -1,8 +1,8 @@
 package web.services;
 
-import web.models.User;
-
 import java.util.List;
+
+import web.models.User;
 
 public interface UserService {
     List<User> getAll();

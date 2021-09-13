@@ -1,8 +1,8 @@
 package web.dao;
 
-import web.models.User;
-
 import java.util.List;
+
+import web.models.User;
 
 public interface UserDao {
     List<User> getAll();

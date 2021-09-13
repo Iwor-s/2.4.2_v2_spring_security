@@ -1,8 +1,8 @@
 package web.services;
 
-import web.models.Role;
-
 import java.util.List;
+
+import web.models.Role;
 
 public interface RoleService {
     List<Role> getAll();

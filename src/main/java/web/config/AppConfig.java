@@ -2,7 +2,6 @@ package web.config;
 
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
@@ -30,7 +29,7 @@ public class AppConfig extends AbstractAnnotationConfigDispatcherServletInitiali
     }
     
     private void registerHiddenFieldFilter(ServletContext aContext) {
-        aContext.addFilter("hiddenHttpMethodFilter",
-                new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
+        aContext.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter())
+                .addMappingForUrlPatterns(null ,true, "/*");
     }
 }

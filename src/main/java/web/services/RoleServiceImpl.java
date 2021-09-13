@@ -1,11 +1,11 @@
 package web.services;
 
 import org.springframework.stereotype.Service;
-import web.dao.RoleDao;
-import web.models.Role;
-
 import javax.transaction.Transactional;
 import java.util.List;
+
+import web.dao.RoleDao;
+import web.models.Role;
 
 @Service
 @Transactional
