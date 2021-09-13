@@ -21,9 +21,9 @@
         <td th:text="${user.getLogin()}"></td>
         <td th:text="${user.getPassword()}"></td>
         <td>
-            <span th:each="role : ${user.getRoles()}">
-                <span th:text="${role}"></span><br>
-            </span>
+            <div th:each="role : ${user.getRoles()}">
+                <p th:text="${role}"></p>
+            </div>
         </td>
         <td>
             <a th:href="@{users/{id}(id=${user.getId()})}">info</a>

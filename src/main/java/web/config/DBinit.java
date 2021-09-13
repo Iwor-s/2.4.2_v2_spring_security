@@ -23,8 +23,8 @@ public class DBinit {
         roleService.save(new Role("ADMIN"));
         roleService.save(new Role("USER"));
         
-        User user1 = new User("tom", "tom", "Tom", "Jones", "tom@gmail.com");
-        User user2 = new User("ann", "ann", "Ann", "Smith", "ann@hotmail.com");
+        User user1 = new User("том", "том", "Том", "Jones", "tom@gmail.com");
+        User user2 = new User("анна", "анна", "Анна", "Smith", "ann@hotmail.com");
         User user3 = new User("sam", "sam", "Sam", "Black", "sam@yahoo.com");
         user1.addRole(roleService.getByName("ADMIN"));
         user2.addRole(roleService.getByName("USER"));

@@ -10,7 +10,9 @@ import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -58,12 +60,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //страница аутентификации доступна всем
                 .antMatchers("/login").anonymous()
-                .antMatchers("/static/**").permitAll() // for css in login.html page
+                .antMatchers("/static/**").permitAll()  // for css in login.html page
                 // защищенные URL
-                .regexMatchers("/admin.*").access("hasRole('ADMIN')")
-                .antMatchers("/user").access("hasAnyRole('USER', 'ADMIN')")
+                .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                .antMatchers("/user/**").access("hasAnyRole('USER', 'ADMIN')")
                 .antMatchers("/").authenticated()
                 .anyRequest().authenticated();
+    
+        http.addFilterBefore(characterEncodingFilter(), CsrfFilter.class);
+    
     }
 
     @Bean
@@ -75,5 +80,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     GrantedAuthorityDefaults grantedAuthorityDefaults() {
         return new GrantedAuthorityDefaults("");
+    }
+    
+// for cyrillic password
+    private CharacterEncodingFilter characterEncodingFilter() {
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        return filter;
     }
 }
