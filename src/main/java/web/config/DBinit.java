@@ -10,7 +10,6 @@ import web.services.UserService;
 
 @Component
 public class DBinit {
-    
     private final RoleService roleService;
     private final UserService userService;
     
@@ -21,18 +20,16 @@ public class DBinit {
     
     @PostConstruct
     public void createData() {
-        Role role1 = new Role("ADMIN");
-        Role role2 = new Role("USER");
-        roleService.save(role1);
-        roleService.save(role2);
+        roleService.save(new Role("ADMIN"));
+        roleService.save(new Role("USER"));
         
         User user1 = new User("tom", "tom", "Tom", "Jones", "tom@gmail.com");
         User user2 = new User("ann", "ann", "Ann", "Smith", "ann@hotmail.com");
         User user3 = new User("sam", "sam", "Sam", "Black", "sam@yahoo.com");
-        user1.addRole(role1);
-        user2.addRole(role2);
-        user3.addRole(role1);
-        user3.addRole(role2);
+        user1.addRole(roleService.getByName("ADMIN"));
+        user2.addRole(roleService.getByName("USER"));
+        user3.addRole(roleService.getByName("ADMIN"));
+        user3.addRole(roleService.getByName("USER"));
         userService.save(user1);
         userService.save(user2);
         userService.save(user3);
