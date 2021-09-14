@@ -16,8 +16,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService userDetailsService; // сервис, с помощью которого тащим пользователя
-    private final LoginSuccessHandler loginSuccessHandler; // класс, в котором описана логика перенаправления пользователей по ролям
+    private final UserDetailsService userDetailsService;
+    private final LoginSuccessHandler loginSuccessHandler;
     
     public SecurityConfig(UserDetailsService userDetailsService
             , LoginSuccessHandler loginSuccessHandler) {
@@ -27,48 +27,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder()); // конфигурация для прохождения аутентификации
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                // указываем страницу с формой логина
                 .loginPage("/login")
-                //указываем логику обработки при логине
                 .successHandler(loginSuccessHandler)
-                // указываем action с формы логина
                 .loginProcessingUrl("/login")
-                // Указываем параметры логина и пароля с формы логина
                 .usernameParameter("j_username")
                 .passwordParameter("j_password")
-                // даем доступ к форме логина всем
                 .permitAll();
 
         http.logout()
-                // разрешаем делать логаут всем
                 .permitAll()
-                // указываем URL логаута
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                // указываем URL при удачном логауте
                 .logoutSuccessUrl("/login?logout")
-                //выключаем кроссдоменную секьюрность (на этапе обучения неважна)
                 .and().csrf().disable();
     
         http
-                // делаем страницу регистрации недоступной для авторизированных пользователей
                 .authorizeRequests()
-                //страница аутентификации доступна всем
                 .antMatchers("/login").anonymous()
                 .antMatchers("/static/**").permitAll()  // for css in login.html page
-                // защищенные URL
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .antMatchers("/user/**").access("hasAnyRole('USER', 'ADMIN')")
                 .antMatchers("/").authenticated()
                 .anyRequest().authenticated();
     
         http.addFilterBefore(characterEncodingFilter(), CsrfFilter.class);
-    
     }
 
     @Bean
@@ -78,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
 // Remove the ROLE_ prefix
     @Bean
-    GrantedAuthorityDefaults grantedAuthorityDefaults() {
+    public GrantedAuthorityDefaults grantedAuthorityDefaults() {
         return new GrantedAuthorityDefaults("");
     }
     
