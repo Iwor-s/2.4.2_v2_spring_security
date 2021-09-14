@@ -22,6 +22,7 @@ public class User implements UserDetails {
     private String name;
     private String surname;
     private String email;
+    private boolean isEnabled;
     
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @Fetch(FetchMode.JOIN)
@@ -34,12 +35,13 @@ public class User implements UserDetails {
     public User() {
     }
     
-    public User(String login, String password, String name, String surname, String email) {
+    public User(String login, String password, String name, String surname, String email, boolean isEnabled) {
         this.login = login;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.email = email;
+        this.isEnabled = isEnabled;
     }
     
     public long getId() {
@@ -87,6 +89,10 @@ public class User implements UserDetails {
         this.email = email;
     }
     
+    public void setEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+    
     public Set<Role> getRoles() {
         return roles;
     }
@@ -128,7 +134,7 @@ public class User implements UserDetails {
     
     @Override
     public boolean isEnabled() {
-        return true;
+        return isEnabled;
     }
     
     @Override
@@ -152,6 +158,15 @@ public class User implements UserDetails {
     
     @Override
     public String toString() {
-        return "ID " + id + " " + roles + " " + login + " " + password;
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", isEnabled=" + isEnabled +
+                ", roles=" + roles +
+                '}';
     }
 }

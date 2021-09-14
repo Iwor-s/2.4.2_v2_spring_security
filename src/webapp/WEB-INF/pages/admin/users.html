@@ -13,6 +13,7 @@
         <th>ID</th>
         <th>Login</th>
         <th>Password</th>
+        <th>isEnabled</th>
         <th>Roles</th>
         <th colspan="2">Operations</th>
     </tr>
@@ -20,6 +21,7 @@
         <td th:text="${user.getId()}"></td>
         <td th:text="${user.getLogin()}"></td>
         <td th:text="${user.getPassword()}"></td>
+        <td th:text="${user.isEnabled()}"></td>
         <td>
             <div th:each="role : ${user.getRoles()}">
                 <p th:text="${role}"></p>
