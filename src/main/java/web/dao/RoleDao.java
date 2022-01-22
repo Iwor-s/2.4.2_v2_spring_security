@@ -1,8 +1,8 @@
 package web.dao;
 
-import java.util.List;
-
 import web.models.Role;
+
+import java.util.List;
 
 public interface RoleDao {
     List<Role> getAll();

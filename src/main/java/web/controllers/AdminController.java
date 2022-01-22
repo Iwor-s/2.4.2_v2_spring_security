@@ -3,7 +3,6 @@ package web.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import web.models.User;
 import web.services.RoleService;
 import web.services.UserService;
